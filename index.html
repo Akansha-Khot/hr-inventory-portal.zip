@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inLinTech Solutions - HR & Inventory Management</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <img src="logo.png" alt="WinLinTech Logo" class="login-logo">
+                <h1>Welcome Back</h1>
+                <p>Sign in to your account</p>
+            </div>
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full-width">Sign In</button>
+            </form>
+            <div class="demo-credentials">
+                <h4>Demo Credentials:</h4>
+                <div class="demo-users">
+                    <div class="demo-user" data-email="admin@inlintech.net" data-role="admin">
+                        <strong>Admin:</strong> admin@inlintech.net
+                    </div>
+                    <div class="demo-user" data-email="sarah@inlintech.net" data-role="hr_manager">
+                        <strong>HR Manager:</strong> sarah@inlintech.net
+                    </div>
+                    <div class="demo-user" data-email="mike@inlintech.net" data-role="inventory_manager">
+                        <strong>Inventory Manager:</strong> mike@inlintech.net
+                    </div>
+                    <div class="demo-user" data-email="alice@inlintech.net" data-role="employee">
+                        <strong>Employee:</strong> alice@inlintech.net
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" class="main-app hidden">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-container">
+                <div class="header-left">
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <img src="logo.png" alt="WinLinTech Logo" class="header-logo">
+                </div>
+                <nav class="header-nav" id="headerNav">
+                    <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                    <a href="#hr" class="nav-link" data-page="hr" data-roles="admin,hr_manager">
+                        <i class="fas fa-users"></i> HR Management
+                    </a>
+                    <a href="#inventory" class="nav-link" data-page="inventory" data-roles="admin,inventory_manager">
+                        <i class="fas fa-boxes"></i> Inventory
+                    </a>
+                    <a href="#portal" class="nav-link" data-page="portal" data-roles="employee">
+                        <i class="fas fa-user-circle"></i> Self-Service
+                    </a>
+                    <a href="#admin" class="nav-link" data-page="admin" data-roles="admin">
+                        <i class="fas fa-cog"></i> Admin
+                    </a>
+                </nav>
+                <div class="header-right">
+                    <div class="user-profile" id="userProfile">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%2360a5fa'/%3E%3Ctext x='20' y='25' text-anchor='middle' font-family='Arial, sans-serif' font-size='14' fill='white'%3EU%3C/text%3E%3C/svg%3E" alt="User Avatar" class="user-avatar">
+                        <span class="user-name" id="userName">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#profile" class="dropdown-item">
+                            <i class="fas fa-user"></i> Profile
+                        </a>
+                        <a href="#settings" class="dropdown-item">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#logout" class="dropdown-item" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard -->
+            <div id="dashboardPage" class="page active">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Welcome to inLinTech Solutions Management System</p>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>156</h3>
+                            <p>Total Employees</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>23</h3>
+                            <p>Active Projects</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>8</h3>
+                            <p>Pending Leaves</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>342</h3>
+                            <p>Total Assets</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="dashboard-left">
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Employee Distribution</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="chart-container" style="position: relative; height: 300px;">
+                                    <canvas id="employeeChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-right">
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Recent Activities</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="activity-list">
+                                    <div class="activity-item">
+                                        <i class="fas fa-user-plus activity-icon"></i>
+                                        <div class="activity-content">
+                                            <p>New employee onboarded</p>
+                                            <small>2 hours ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <i class="fas fa-calendar-check activity-icon"></i>
+                                        <div class="activity-content">
+                                            <p>Leave request approved</p>
+                                            <small>4 hours ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <i class="fas fa-box activity-icon"></i>
+                                        <div class="activity-content">
+                                            <p>New asset registered</p>
+                                            <small>1 day ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>System Status</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="status-list">
+                                    <div class="status-item">
+                                        <span class="status status--success">HR Service</span>
+                                        <span>Online</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status status--success">Inventory Service</span>
+                                        <span>Online</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status status--warning">Auth Service</span>
+                                        <span>Degraded</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HR Management -->
+            <div id="hrPage" class="page">
+                <div class="page-header">
+                    <h1>HR Management</h1>
+                    <button class="btn btn--primary" onclick="openModal('addEmployeeModal')">
+                        <i class="fas fa-plus"></i> Add Employee
+                    </button>
+                </div>
+
+                <div class="hr-tabs">
+                    <button class="tab-btn active" data-tab="employees">Employees</button>
+                    <button class="tab-btn" data-tab="leave-requests">Leave Requests</button>
+                    <button class="tab-btn" data-tab="performance">Performance</button>
+                    <button class="tab-btn" data-tab="onboarding">Onboarding</button>
+                </div>
+
+                <div class="tab-content">
+                    <div id="employees" class="tab-pane active">
+                        <div class="search-bar">
+                            <input type="text" placeholder="Search employees..." class="form-control">
+                            <button class="btn btn--secondary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Department</th>
+                                        <th>Join Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="employeeTableBody">
+                                    <!-- Employee data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="leave-requests" class="tab-pane">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Type</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Days</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="leaveRequestTableBody">
+                                    <!-- Leave request data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="performance" class="tab-pane">
+                        <div class="performance-grid">
+                            <div class="card">
+                                <div class="card__header">
+                                    <h3>Performance Overview</h3>
+                                </div>
+                                <div class="card__body">
+                                    <p>Performance tracking and evaluation tools will be available here.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="onboarding" class="tab-pane">
+                        <div class="onboarding-grid">
+                            <div class="card">
+                                <div class="card__header">
+                                    <h3>Onboarding Checklist</h3>
+                                </div>
+                                <div class="card__body">
+                                    <p>Employee onboarding workflow and documentation will be managed here.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Management -->
+            <div id="inventoryPage" class="page">
+                <div class="page-header">
+                    <h1>Inventory Management</h1>
+                    <button class="btn btn--primary" onclick="openModal('addAssetModal')">
+                        <i class="fas fa-plus"></i> Add Asset
+                    </button>
+                </div>
+
+                <div class="inventory-tabs">
+                    <button class="tab-btn active" data-tab="assets">Assets</button>
+                    <button class="tab-btn" data-tab="procurement">Procurement</button>
+                    <button class="tab-btn" data-tab="maintenance">Maintenance</button>
+                    <button class="tab-btn" data-tab="qr-codes">QR Codes</button>
+                </div>
+
+                <div class="tab-content">
+                    <div id="assets" class="tab-pane active">
+                        <div class="search-bar">
+                            <input type="text" placeholder="Search assets..." class="form-control">
+                            <button class="btn btn--secondary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Asset Name</th>
+                                        <th>Category</th>
+                                        <th>Assigned To</th>
+                                        <th>Status</th>
+                                        <th>Purchase Date</th>
+                                        <th>Value</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="assetTableBody">
+                                    <!-- Asset data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="procurement" class="tab-pane">
+                        <div class="procurement-grid">
+                            <div class="card">
+                                <div class="card__header">
+                                    <h3>Procurement Requests</h3>
+                                </div>
+                                <div class="card__body">
+                                    <p>Asset procurement and approval workflow will be managed here.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="maintenance" class="tab-pane">
+                        <div class="maintenance-grid">
+                            <div class="card">
+                                <div class="card__header">
+                                    <h3>Maintenance Schedule</h3>
+                                </div>
+                                <div class="card__body">
+                                    <div class="status-item">
+                                        <span class="status status--warning">3 Maintenance Alerts</span>
+                                        <span>Requires Attention</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="qr-codes" class="tab-pane">
+                        <div class="qr-grid">
+                            <div class="card">
+                                <div class="card__header">
+                                    <h3>QR Code Management</h3>
+                                </div>
+                                <div class="card__body">
+                                    <p>Generate and manage QR codes for asset tracking.</p>
+                                    <button class="btn btn--secondary">Generate QR Codes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Self-Service Portal -->
+            <div id="portalPage" class="page">
+                <div class="page-header">
+                    <h1>Self-Service Portal</h1>
+                    <p>Manage your personal information and requests</p>
+                </div>
+
+                <div class="portal-grid">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Personal Information</h3>
+                        </div>
+                        <div class="card__body">
+                            <form class="profile-form">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" value="Alice Employee" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" value="alice@inlintech.net" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Department</label>
+                                    <input type="text" class="form-control" value="Marketing" readonly>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Quick Actions</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="quick-actions">
+                                <button class="btn btn--outline btn--full-width" onclick="openModal('leaveRequestModal')">
+                                    <i class="fas fa-calendar-alt"></i> Request Leave
+                                </button>
+                                <button class="btn btn--outline btn--full-width">
+                                    <i class="fas fa-file-download"></i> Download Documents
+                                </button>
+                                <button class="btn btn--outline btn--full-width">
+                                    <i class="fas fa-edit"></i> Update Information
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>My Leave Balance</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="leave-balance">
+                                <div class="balance-item">
+                                    <span>Annual Leave:</span>
+                                    <strong>18 days</strong>
+                                </div>
+                                <div class="balance-item">
+                                    <span>Sick Leave:</span>
+                                    <strong>7 days</strong>
+                                </div>
+                                <div class="balance-item">
+                                    <span>Personal Leave:</span>
+                                    <strong>3 days</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Panel -->
+            <div id="adminPage" class="page">
+                <div class="page-header">
+                    <h1>Admin Panel</h1>
+                    <p>System administration and configuration</p>
+                </div>
+
+                <div class="admin-tabs">
+                    <button class="tab-btn active" data-tab="users">User Management</button>
+                    <button class="tab-btn" data-tab="settings">System Settings</button>
+                    <button class="tab-btn" data-tab="gdpr">GDPR Compliance</button>
+                    <button class="tab-btn" data-tab="integrations">Integrations</button>
+                </div>
+
+                <div class="tab-content">
+                    <div id="users" class="tab-pane active">
+                        <div class="admin-header">
+                            <h3>User Management</h3>
+                            <button class="btn btn--primary" onclick="openModal('addUserModal')">
+                                <i class="fas fa-plus"></i> Add User
+                            </button>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Department</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="userTableBody">
+                                    <!-- User data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="settings" class="tab-pane">
+                        <div class="settings-grid">
+                            <div class="card">
+                                <div class="card__header">
+                                    <h3>System Configuration</h3>
+                                </div>
+                                <div class="card__body">
+                                    <p>Configure system-wide settings and preferences.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="gdpr" class="tab-pane">
+                        <div class="gdpr-grid">
+                            <div class="card">
+                                <div class="card__header">
+                                    <h3>GDPR Compliance</h3>
+                                </div>
+                                <div class="card__body">
+                                    <div class="compliance-items">
+                                        <div class="compliance-item">
+                                            <span class="status status--success">Data Processing Records</span>
+                                            <span>Complete</span>
+                                        </div>
+                                        <div class="compliance-item">
+                                            <span class="status status--success">Consent Management</span>
+                                            <span>Active</span>
+                                        </div>
+                                        <div class="compliance-item">
+                                            <span class="status status--warning">Privacy Policy</span>
+                                            <span>Needs Review</span>
+                                        </div>
+                                    </div>
+                                    <div class="gdpr-actions">
+                                        <button class="btn btn--outline">Export User Data</button>
+                                        <button class="btn btn--outline">Delete User Data</button>
+                                        <button class="btn btn--outline">Audit Logs</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="integrations" class="tab-pane">
+                        <div class="integrations-grid">
+                            <div class="card">
+                                <div class="card__header">
+                                    <h3>External Integrations</h3>
+                                </div>
+                                <div class="card__body">
+                                    <div class="integration-list">
+                                        <div class="integration-item">
+                                            <div class="integration-info">
+                                                <h4>Payroll System</h4>
+                                                <p>Employee salary and benefits management</p>
+                                            </div>
+                                            <span class="status status--success">Connected</span>
+                                        </div>
+                                        <div class="integration-item">
+                                            <div class="integration-info">
+                                                <h4>Email Service</h4>
+                                                <p>Automated notifications and communications</p>
+                                            </div>
+                                            <span class="status status--success">Connected</span>
+                                        </div>
+                                        <div class="integration-item">
+                                            <div class="integration-info">
+                                                <h4>Document Management</h4>
+                                                <p>File storage and document workflows</p>
+                                            </div>
+                                            <span class="status status--error">Disconnected</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-left">
+                    <p>&copy; 2025 inLinTech Solutions. All rights reserved.</p>
+                </div>
+                <div class="footer-center">
+                    <p>123 Technology Park, Innovation City | +91 8788462258 | info@inlintech.net</p>
+                </div>
+                <div class="footer-right">
+                    <a href="#privacy" target="_blank">Privacy Policy</a>
+                    <a href="#terms" target="_blank">Terms of Service</a>
+                    <a href="#gdpr" target="_blank">GDPR Compliance</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modals -->
+    <div id="addEmployeeModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Employee</h3>
+                <button class="modal-close" onclick="closeModal('addEmployeeModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addEmployeeForm">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Position</label>
+                        <input type="text" name="position" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Department</label>
+                        <select name="department" class="form-control" required>
+                            <option value="">Select Department</option>
+                            <option value="IT">IT</option>
+                            <option value="HR">Human Resources</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Operations">Operations</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Join Date</label>
+                        <input type="date" name="joinDate" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--secondary" onclick="closeModal('addEmployeeModal')">Cancel</button>
+                <button class="btn btn--primary" onclick="submitForm('addEmployeeForm')">Add Employee</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="addAssetModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Asset</h3>
+                <button class="modal-close" onclick="closeModal('addAssetModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addAssetForm">
+                    <div class="form-group">
+                        <label>Asset Name</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select name="category" class="form-control" required>
+                            <option value="">Select Category</option>
+                            <option value="Computers">Computers</option>
+                            <option value="Mobile Devices">Mobile Devices</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Electronics">Electronics</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Purchase Date</label>
+                        <input type="date" name="purchaseDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Value</label>
+                        <input type="text" name="value" class="form-control" placeholder="$0.00" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--secondary" onclick="closeModal('addAssetModal')">Cancel</button>
+                <button class="btn btn--primary" onclick="submitForm('addAssetForm')">Add Asset</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="leaveRequestModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Request Leave</h3>
+                <button class="modal-close" onclick="closeModal('leaveRequestModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="leaveRequestForm">
+                    <div class="form-group">
+                        <label>Leave Type</label>
+                        <select name="type" class="form-control" required>
+                            <option value="">Select Type</option>
+                            <option value="Vacation">Vacation</option>
+                            <option value="Sick Leave">Sick Leave</option>
+                            <option value="Personal">Personal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="date" name="startDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="date" name="endDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Reason</label>
+                        <textarea name="reason" class="form-control" rows="3" placeholder="Please provide a reason for your leave request..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--secondary" onclick="closeModal('leaveRequestModal')">Cancel</button>
+                <button class="btn btn--primary" onclick="submitForm('leaveRequestForm')">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
